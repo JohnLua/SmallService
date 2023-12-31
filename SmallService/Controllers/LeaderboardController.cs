@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SmallService.Model;
+using SmallService.Models;
 using SmallService.Service;
-using System;
 using System.Collections.Generic;
 
 namespace SmallService.Controllers
@@ -9,17 +8,23 @@ namespace SmallService.Controllers
     [ApiController]
     public class LeaderboardController : ControllerBase
     {
-        [HttpGet("leaderboard")]
-        public IEnumerable<Customer> Range(int start, int end)
+        private readonly ILeaderBoardService _leaderboardService;
+
+        public LeaderboardController(ILeaderBoardService leaderboardService)
         {
-            return MemoryDatabaseService.Range(start, end);
+            _leaderboardService = leaderboardService;
         }
 
+        [HttpGet("leaderboard")]
+        public IEnumerable<CustomerRank> Rank(int start, int end)
+        {
+            return _leaderboardService.Rank(start, end);
+        }
 
         [HttpGet("leaderboard/{customerId}")]
-        public IEnumerable<Customer> RangeByCustomerId(Int64 customerId, int high, int low)
+        public IEnumerable<CustomerRank> RankByCustomerId(long customerId, int high = 0, int low = 0)
         {
-            return MemoryDatabaseService.RangeByCustomerId(customerId, high, low);
+            return _leaderboardService.RankByCustomerId(customerId, high, low);
         }
     }
 }

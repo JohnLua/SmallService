@@ -1,17 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmallService.Service;
-using System;
 
 namespace SmallService.Controllers
 {
     [ApiController]
     public class CustomerController : ControllerBase
     {
+        private readonly ILeaderBoardService _leaderBoardService;
+
+        public CustomerController(ILeaderBoardService leaderBoardService) 
+        {
+            _leaderBoardService = leaderBoardService;
+        }
+
         [HttpGet("customer/{customerId}/score")]
         [HttpGet("customer/{customerId}/score/{score}")]
-        public decimal Update(Int64 customerId, decimal score = 0)
+        public decimal Update(long customerId, decimal score = 0)
         {
-            return MemoryDatabaseService.Update(customerId, score);
+            return _leaderBoardService.Update(customerId, score);
         }
     }
 }

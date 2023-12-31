@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SmallService.Service
 {
-    public interface ILeaderBoardService
+    public interface IRankService
     {
-        public decimal Update(long customerId, decimal score);
+        public void Add(Customer customer);
 
         public IEnumerable<CustomerRank> Rank(int start, int end);
 
