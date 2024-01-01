@@ -16,6 +16,11 @@ namespace SmallService.Service
 
         public void Add(Customer customer)
         {
+            _rankList.Add(customer, customer);
+        }
+
+        public void Update(Customer customer)
+        {
             if (_rankList.ContainsKey(customer))
             {
                 _rankList.Remove(customer);

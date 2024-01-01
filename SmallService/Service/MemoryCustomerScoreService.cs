@@ -7,7 +7,7 @@ namespace SmallService.Service
     {
         private readonly Dictionary<long, Customer> _customerScoreCache = new Dictionary<long, Customer>();
 
-        public bool ContainsCustomer(long customerId)
+        public bool Contains(long customerId)
         {
             return _customerScoreCache.ContainsKey(customerId);
         }
@@ -17,9 +17,11 @@ namespace SmallService.Service
             _customerScoreCache.Add(customer.CustomerId, customer);
         }
 
-        public void Update(long customerId, decimal score)
+        public Customer Update(long customerId, decimal score)
         {
             _customerScoreCache[customerId].Score += score;
+
+            return _customerScoreCache[customerId];
         }
 
         public Customer Get(long customerId)

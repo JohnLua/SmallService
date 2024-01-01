@@ -7,6 +7,8 @@ namespace SmallService.Service
     {
         public void Add(Customer customer);
 
+        public void Update(Customer customer);
+
         public IEnumerable<CustomerRank> Rank(int start, int end);
 
         public IEnumerable<CustomerRank> RankByCustomerId(long customerId, int high, int low);

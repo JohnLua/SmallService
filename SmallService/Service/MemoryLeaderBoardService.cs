@@ -20,11 +20,10 @@ namespace SmallService.Service
         {
             lock (_lockObject)
             {
-                if (_customerScoreService.ContainsCustomer(customerId))
+                if (_customerScoreService.Contains(customerId))
                 {
-                    _customerScoreService.Update(customerId, score);
-                    var updateCustomer = _customerScoreService.Get(customerId);
-                    _rankService.Add(updateCustomer);
+                    var updateCustomer = _customerScoreService.Update(customerId, score);
+                    _rankService.Update(updateCustomer);
 
                     return updateCustomer.Score;
                 }
@@ -52,7 +51,7 @@ namespace SmallService.Service
 
         public IEnumerable<CustomerRank> RankByCustomerId(long customerId, int high, int low)
         {
-            if (!_customerScoreService.ContainsCustomer(customerId))
+            if (!_customerScoreService.Contains(customerId))
             {
                 return Enumerable.Empty<CustomerRank>();
             }
