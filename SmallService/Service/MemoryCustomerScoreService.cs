@@ -19,9 +19,10 @@ namespace SmallService.Service
 
         public Customer Update(long customerId, decimal score)
         {
-            _customerScoreCache[customerId].Score += score;
+            var currentCustomer = _customerScoreCache[customerId];
+            currentCustomer.Score += score;
 
-            return _customerScoreCache[customerId];
+            return currentCustomer;
         }
 
         public Customer Get(long customerId)
